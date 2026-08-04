@@ -7,10 +7,9 @@ public class Prime {
         System.out.println("Enter a number");
         num = in.nextInt();
         for (i = 2; i < num; i++) {
-            if(num % i == 0)
+            if (num % i == 0)
                 c++;
         }
-        System.out.println(c==0?"Prime":"Not a Prime");
+        System.out.println(c == 0 ? "Prime" : "Not a Prime");
     }
 }
-
