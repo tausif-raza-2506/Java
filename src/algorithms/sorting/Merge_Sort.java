@@ -1,6 +1,6 @@
-package Sorting;
+package algorithms.sorting;
 
-public class Selection_Sort {
+public class Merge_Sort {
     public static void main(String[] args) {
 
     }

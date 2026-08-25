@@ -1,6 +1,6 @@
-package Number_Programs;
+package number_programs;
 import java.util.*;
-public class Pallindrome {
+public class Armstrong {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int num, i, c = 0;

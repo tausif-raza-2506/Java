@@ -1,6 +1,6 @@
-package Sorting;
+package basics;
 
-public class Quick_Sort {
+public class Input {
     public static void main(String[] args) {
 
     }

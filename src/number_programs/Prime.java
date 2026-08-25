@@ -1,4 +1,4 @@
-package Number_Programs;
+package number_programs;
 import java.util.*;
 public class Prime {
     public static void main(String[] args) {
