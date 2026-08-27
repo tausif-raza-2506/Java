@@ -1,6 +1,6 @@
 package algorithms.sorting;
 
-public class Selection_Sort {
+public class QuickSort {
     public static void main(String[] args) {
 
     }

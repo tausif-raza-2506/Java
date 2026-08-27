@@ -1,6 +1,6 @@
 package algorithms.sorting;
 
-public class Merge_Sort {
+public class MergeSort {
     public static void main(String[] args) {
 
     }

@@ -1,6 +1,6 @@
 package algorithms.sorting;
 
-public class Insertion_Sort {
+public class SelectionSort {
     public static void main(String[] args) {
 
     }
