@@ -5,7 +5,8 @@ public class ArrayUtils {
     // To take size of array and its elements fron user
     public static int[] readArray(Scanner in) {
         System.out.println("Enter array size");
-        int size = in.nextInt(), arr[] = new int[size];
+        int size = in.nextInt();
+        int[] arr = new int[size];
 
         System.out.println("Enter " + size + " elements");
         for (int i = 0; i < size; i++)
@@ -19,17 +20,10 @@ public class ArrayUtils {
         return in.nextInt();
     }
 
-    // For printing the array elements
-    public static void printArray(int arr[]) {
-        for (int n : arr)
-            System.out.print(n + " ");
-        System.out.println();
-    }
-
     // To reverse the array
-    public static int[] revArray(int arr[]) {
+    public static int[] revArray(int[] arr) {
         int size = arr.length;
-        for(int i =0; i<size/2; i++) {
+        for (int i = 0; i < size / 2; i++) {
             int temp = arr[i];
             arr[i] = arr[size - 1 - i];
             arr[size - 1 - i] = temp;

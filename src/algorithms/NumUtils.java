@@ -20,6 +20,7 @@ public class NumUtils {
         return digits;
     }
 
+    /** Converts an array of single digits into an integer. */
     public static int getNum(int[] arr) {
         if (arr == null || arr.length == 0) {
             return 0;
@@ -31,6 +32,7 @@ public class NumUtils {
         return num;
     }
 
+    /** Returns the sum of all digits in the given number. */
     public static int sumOfDigits(int num) {
         int sum = 0;
         for (int n : getDigits(num))
