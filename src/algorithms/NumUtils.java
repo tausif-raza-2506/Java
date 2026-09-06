@@ -15,7 +15,8 @@ public class NumUtils {
     /** Extracts the individual digits of the number and returns them in an array. */
     public static int[] getDigits(int num) {
         num = Math.abs(num);
-        int size = countDigits(num), digits[] = new int[size];
+        int size = countDigits(num);
+        int[] digits = new int[size];
         for (int i = size - 1; i >= 0; i--) {
             digits[i] = (num % 10);
             num /= 10;
@@ -93,7 +94,7 @@ public class NumUtils {
             throw new IllegalArgumentException("Input must be non-negative");
         }
         int divisors = getDivisors(num).size();
-        return divisors == 2 ? true : false;
+        return divisors == 2;
     }
 
     /** Calculates the factorial of the given non-negative number. */
@@ -112,7 +113,7 @@ public class NumUtils {
         if (n <= 0 || m <= 0)
             return new int[0];
 
-        int series[] = new int[m];
+        int[] series = new int[m];
 
         if (n - 1 < m)
             series[n - 1] = 1;
@@ -177,7 +178,7 @@ public class NumUtils {
 
     /** Returns an array of size 10 containing the frequency of each digit. */
     public static int[] freqOfDigits(int num) {
-        int freq[] = new int[10];
+        int[] freq = new int[10];
         if (num == 0) {
             freq[0] = 1;
             return freq;

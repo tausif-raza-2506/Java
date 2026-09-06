@@ -1,14 +1,18 @@
 package basics;
 import algorithms.NumUtils;
-import java.util.*;
-import static java.util.Map.entry;
 
 public class NumberProgram {
 
+    /**
+     * Reads the same forwards and backwards.
+     */
     public static boolean palindrome(int num) {
         return NumUtils.reverseNum(num) == num;
     }
 
+    /**
+     * Sum of digits raised to number of digits equals the number.
+     */
     public static boolean armstrong(int num) {
         int size = NumUtils.countDigits(num), sum = 0;
         for (int i = num; i > 0; i /= 10)
@@ -16,48 +20,81 @@ public class NumberProgram {
         return sum == num;
     }
 
+    /**
+     * Divisible by 7 or ends with 7.
+     */
     public static boolean buzz(int num) {
         return num % 7 == 0 || num % 10 == 7;
     }
 
+    /**
+     * Sum of digits equals product of digits.
+     */
     public static boolean spy(int num) {
         return NumUtils.sumOfDigits(num) == NumUtils.productOfDigits(num);
     }
 
+    /**
+     * Positive number containing at least one non-leading zero.
+     */
     public static boolean duck(int num) {
         return NumUtils.freqOfDigits(num)[0] > 0;
     }
 
+    /**
+     * Number divisible by the sum of its digits.
+     */
     public static boolean niven(int num) {
         return num % NumUtils.sumOfDigits(num) == 0;
     }
 
+    /**
+     * Sum of digits of its square equals the number.
+     */
     public static boolean neon(int num) {
         return NumUtils.sumOfDigits(num * num) == num;
     }
 
+    /**
+     * Square ends with the number itself.
+     */
     public static boolean automorphic(int num) {
         int size = NumUtils.countDigits(num);
         return (num * num) % (NumUtils.POWERS_OF_10[size]) == num;
     }
 
+    /**
+     * Number can be represented as product of two consecutive integers n(n+1).
+     */
     public static boolean pronic(int num) {
         int n = (int) Math.sqrt(num);
         return n * (n + 1) == num;
     }
 
+    /**
+     * Sum of proper divisors equals the number.
+     */
     public static boolean perfect(int num) {
         return NumUtils.sumOfDivisors(num) - num == num;
     }
 
+    /**
+     * Sum of proper divisors is greater than the number.
+     */
     public static boolean abundant(int num) {
         return NumUtils.sumOfDivisors(num) - num > num;
     }
 
+    /**
+     * Sum of proper divisors is less than the number.
+     */
     public static boolean deficient(int num) {
         return NumUtils.sumOfDivisors(num) - num < num;
     }
 
+    /**
+     * Sum of factorials of digits equals the number.
+     */
     public static boolean krishnamurthy(int num) {
         int sum = 0;
         for (int i = num; i > 0; i /= 10)
@@ -65,6 +102,9 @@ public class NumberProgram {
         return sum == num;
     }
 
+    /**
+     * Sum of digits raised to their positions equals the number.
+     */
     public static boolean disarium(int num) {
         int sum = 0, k = NumUtils.countDigits(num);
         for (int i = num; i > 0; i /= 10) {
@@ -74,11 +114,17 @@ public class NumberProgram {
         return sum == num;
     }
 
+    /**
+     * Repeated sum of digits eventually reaches 1.
+     */
     public static boolean magic(int num) {
         int sum = NumUtils.sumOfDigits(num);
         return sum < 10 ? sum == 1 : magic(sum);
     }
 
+    /**
+     * Repeated sum of squares of digits eventually reaches 1.
+     */
     public static boolean happy(int num) {
         int sum = 0;
         for (int i = num; i > 0; i /= 10)
@@ -86,6 +132,7 @@ public class NumberProgram {
         return sum < 10 ? sum == 1 || sum == 7 : happy(sum);
     }
 
+    /** All digits are distinct with no repetitions. */
     public static boolean unique(int num) {
         int[] arr = NumUtils.freqOfDigits(num);
         for (int n : arr)
@@ -93,15 +140,24 @@ public class NumberProgram {
         return true;
     }
 
+    /**
+     * Two prime numbers differing by 2.
+     */
     public static boolean twinPrime(int num1, int num2) {
         boolean b1 = NumUtils.checkPrime(num1), b2 = NumUtils.checkPrime(num2);
         return b1 && b2 && Math.abs(num1 - num2) == 2;
     }
 
+    /**
+     * A number that is both prime and palindrome.
+     */
     public static boolean palPrime(int num) {
         return NumUtils.checkPrime(num) && palindrome(num);
     }
 
+    /**
+     * Square can be split into two parts summing to the number.
+     */
     public static boolean kaprekar(int num) {
         if (num == 1) return true;
         int sq = num * num, right, left;
@@ -113,6 +169,9 @@ public class NumberProgram {
         return false;
     }
 
+    /**
+     * All cyclic rotations of the number are prime.
+     */
     public static boolean circularPrime(int num) {
         if (!NumUtils.checkPrime(num)) return false;
         int size = NumUtils.countDigits(num);
@@ -123,6 +182,9 @@ public class NumberProgram {
         return true;
     }
 
+    /**
+     * Positive integer whose only prime factors are 2, 3, or 5.
+     */
     public static boolean ugly(int num) {
         for (int n : NumUtils.primeFactors(num)) {
             if (n > 5) return false;
@@ -130,10 +192,16 @@ public class NumberProgram {
         return true;
     }
 
+    /**
+     * Two numbers where proper divisors of each sums up to the other number.
+     */
     public static boolean amicablePair(int num1, int num2) {
         return NumUtils.sumOfDivisors(num1) == num2 && NumUtils.sumOfDivisors(num2) == num1;
     }
 
+    /**
+     * Sum of digits equals sum of digits of its prime factors.
+     */
     public static boolean smith(int num) {
         int sum = 0;
         for (int n : NumUtils.primeFactors(num))
@@ -141,6 +209,9 @@ public class NumberProgram {
         return sum == NumUtils.sumOfDigits(num);
     }
 
+    /**
+     * Concatenating num, num*2, num*3 contains digits 1 to 9 once.
+     */
     public static boolean fascinating(int num) {
         if (num < 100 || num > 333) return false;
         String s = "" + num + (num * 2) + (num * 3);
@@ -153,14 +224,23 @@ public class NumberProgram {
         return true;
     }
 
+    /**
+     * Binary representation has an even number of 1s.
+     */
     public static boolean evil(int num) {
         return Integer.bitCount(num) % 2 == 0;
     }
 
+    /**
+     * Binary representation has an odd number of 1s.
+     */
     public static boolean odious(int num) {
         return !evil(num);
     }
 
+    /**
+     * Digits neither strictly increasing nor strictly decreasing.
+     */
     public static boolean bouncy(int num) {
         boolean inc = false, dec = false;
         int curr;
@@ -173,6 +253,9 @@ public class NumberProgram {
         return false;
     }
 
+    /**
+     * Even number > 2 expressible as sum of two primes.
+     */
     public static boolean goldbach(int num) {
         if (num <= 2 || num % 2 != 0) return false;
         if (num == 4) {
@@ -189,6 +272,9 @@ public class NumberProgram {
         return false;
     }
 
+    /**
+     * Prime number of the form 2^p - 1.
+     */
     public static boolean mersennePrime(int num) {
         if (!NumUtils.checkPrime(num))
             return false;
@@ -202,37 +288,4 @@ public class NumberProgram {
 //        if ((next & (next - 1)) != 0)
 //            return false;
     }
-
-    Map<String, String> definitions = Map.ofEntries(
-            entry("palindrome",    "Reads the same forwards and backwards."),
-            entry("armstrong",     "Sum of digits raised to digit count equals the number."),
-            entry("buzz",          "Divisible by 7 or ends with 7."),
-            entry("spy",           "Sum of digits equals product of digits."),
-            entry("duck",          "Positive number containing at least one non-leading zero."),
-            entry("niven",         "Divisible by the sum of its digits."),
-            entry("neon",          "Sum of digits of its square equals the number."),
-            entry("automorphic",   "Square ends with the number itself."),
-            entry("pronic",        "Product of two consecutive integers n(n+1)."),
-            entry("perfect",       "Sum of proper divisors equals the number."),
-            entry("abundant",      "Sum of proper divisors is greater than the number."),
-            entry("deficient",     "Sum of proper divisors is less than the number."),
-            entry("krishnamurthy", "Sum of factorials of digits equals the number."),
-            entry("disarium",      "Sum of digits powered to their positions equals the number."),
-            entry("magic",         "Repeated sum of digits eventually reaches 1."),
-            entry("happy",         "Repeated sum of squares of digits eventually reaches 1."),
-            entry("unique",        "All digits are distinct with no repeats."),
-            entry("twinPrime",     "Two prime numbers differing by 2."),
-            entry("palPrime",      "A number that is both prime and palindrome."),
-            entry("kaprekar",      "Square can be split into two parts summing to the number."),
-            entry("circularPrime", "All cyclic rotations of its digits are prime."),
-            entry("ugly",          "Positive integer whose only prime factors are 2, 3, or 5."),
-            entry("amicablePair",  "Two numbers where proper divisors of each sum to the other."),
-            entry("smith",         "Composite number where sum of digits equals sum of prime factor digits."),
-            entry("fascinating",   "Concatenating num, num*2, num*3 contains digits 1-9 once."),
-            entry("evil",          "Binary representation has an even count of 1s."),
-            entry("odious",        "Binary representation has an odd count of 1s."),
-            entry("bouncy",        "Digits neither strictly increase nor strictly decrease."),
-            entry("goldbach",      "Even number > 2 expressible as sum of two primes."),
-            entry("mersennePrime", "Prime number of the form 2^p - 1.")
-    );
 }
