@@ -2,7 +2,7 @@ package algorithms;
 import java.util.*;
 public class ArrayUtils {
 
-    // To take size of array and its elements fron user
+    /** To take user inputs for size of array and its elements. */
     public static int[] readArray(Scanner in) {
         System.out.println("Enter array size");
         int size = in.nextInt();
@@ -14,13 +14,13 @@ public class ArrayUtils {
         return arr;
     }
 
-    // To take search element from the user
+    /** To take search element from the user. */
     public static int readTarget(Scanner in) {
         System.out.println("Enter search element");
         return in.nextInt();
     }
 
-    // To reverse the array
+    /** To reverse the given array. */
     public static int[] revArray(int[] arr) {
         int size = arr.length;
         for (int i = 0; i < size / 2; i++) {

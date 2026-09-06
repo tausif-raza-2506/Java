@@ -2,14 +2,17 @@ package algorithms;
 import java.util.*;
 public class NumUtils {
 
+    /** Precomputed powers of 10 indexed by their exponent for fast lookup. */
     public static final int[] POWERS_OF_10 = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
 
+    /** Returns the number of digits in the given integer. */
     public static int countDigits(int num) {
         if (num == 0)
             return 1;
         return (int) Math.log10(Math.abs(num)) + 1;
     }
 
+    /** Extracts the individual digits of the number and returns them in an array. */
     public static int[] getDigits(int num) {
         num = Math.abs(num);
         int size = countDigits(num), digits[] = new int[size];
@@ -40,6 +43,7 @@ public class NumUtils {
         return sum;
     }
 
+    /** Returns the product of all digits in the given number. */
     public static int productOfDigits(int num) {
         int prod = 1;
         for (int n : getDigits(num))
@@ -47,6 +51,7 @@ public class NumUtils {
         return prod;
     }
 
+    /** Reverses the digits of the given integer. */
     public static int reverseNum(int num) {
         int org = num;
         num = Math.abs(num);
@@ -56,6 +61,7 @@ public class NumUtils {
         return org < 0 ? -rev : rev;
     }
 
+    /** Finds and returns all divisors of the given number. */
     public static ArrayList<Integer> getDivisors(int num) {
         ArrayList<Integer> divisors = new ArrayList<>();
         num = Math.abs(num);
@@ -72,6 +78,7 @@ public class NumUtils {
         return divisors;
     }
 
+    /** Computes the sum of all proper divisors of the given number. */
     public static int sumOfDivisors(int num) {
         int sum = 0;
         for (int d : getDivisors(num)) {
@@ -80,6 +87,7 @@ public class NumUtils {
         return sum;
     }
 
+    /** Check whether the given integer is prime or not. */
     public static boolean checkPrime(int num) {
         if (num < 0) {
             throw new IllegalArgumentException("Input must be non-negative");
@@ -88,6 +96,7 @@ public class NumUtils {
         return divisors == 2 ? true : false;
     }
 
+    /** Calculates the factorial of the given non-negative number. */
     public static int factorial(int num) {
         if (num < 0) {
             throw new IllegalArgumentException("Input must be non-negative");
@@ -98,6 +107,7 @@ public class NumUtils {
         return num * factorial(num - 1);
     }
 
+    /** Generates the first m terms of an n-bonacci sequence. */
     public static int[] Nbonacci(int n, int m) {
         if (n <= 0 || m <= 0)
             return new int[0];
@@ -117,12 +127,14 @@ public class NumUtils {
         return series;
     }
 
+    /** Computes the sum of digits recursively until a single digit is obtained. */
     public static int digitalSum(int num) {
         if (num == 0)
             return 0;
         return 1 + (num - 1) % 9;
     }
 
+    /** Rotates the digits of the number to the left by k positions. */
     public static int leftRotate(int num, int k) {
         if (num == 0)
             return 0;
@@ -137,10 +149,12 @@ public class NumUtils {
         return (num % div) * mult + (num / div);
     }
 
+    /** Rotates the digits of the number to the right by k positions. */
     public static int rightRotate(int num, int k) {
         return leftRotate(num, -k);
     }
 
+    /** Finds and returns all prime factors of the given number. */
     public static ArrayList<Integer> primeFactors(int num) {
         ArrayList<Integer> factors = new ArrayList<>();
         num = Math.abs(num);
@@ -161,6 +175,7 @@ public class NumUtils {
         return factors;
     }
 
+    /** Returns an array of size 10 containing the frequency of each digit. */
     public static int[] freqOfDigits(int num) {
         int freq[] = new int[10];
         if (num == 0) {
@@ -173,10 +188,12 @@ public class NumUtils {
         return freq;
     }
 
+    /** Computes the Greatest Common Divisor (GCD) of two integers using the Euclidean algorithm. */
     public static int gcd(int a, int b) {
         return (b == 0) ? Math.abs(a) : gcd(b, a % b);
     }
 
+    /** Computes the Least Common Multiple (LCM) of two integers. */
     public static int lcm(int a, int b) {
         return (a == 0 || b == 0) ? 0 : Math.abs(a / gcd(a, b) * b);
     }
