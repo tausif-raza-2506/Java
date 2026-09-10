@@ -1,6 +1,6 @@
 package concepts;
 
-enum Laptop {
+enum Laptops {
     Macbook("Apple", 2000),
     SurfacePro("Microsoft", 1800),
     GalaxyBook("Samsung", 1900),
@@ -9,7 +9,7 @@ enum Laptop {
     private final String companyName;
     private final int price;
 
-    Laptop(String companyName, int price) {
+    Laptops(String companyName, int price) {
         this.companyName = companyName;
         this.price = price;
     }
@@ -26,17 +26,17 @@ enum Laptop {
 public class Enums {
     public static void main(String[] args) {
 
-        Laptop lap = Laptop.GalaxyBook;
+        Laptops lap = Laptops.GalaxyBook;
         System.out.println(lap + " : " + lap.getPrice());
 
         // For printing all values
-        Laptop[] lappy = Laptop.values();
-        for (Laptop l : lappy) {
+        Laptops[] lappy = Laptops.values();
+        for (Laptops l : lappy) {
             System.out.println(l.getCompanyName() + " : " + l.getPrice());
         }
 
         // Enum using switch case
-        Laptop lap2 = Laptop.SurfacePro;
+        Laptops lap2 = Laptops.SurfacePro;
         String s = switch(lap) {
             case Macbook -> "I don't like Apple";
             case GalaxyBook -> "Buy it";
