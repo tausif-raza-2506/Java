@@ -1,6 +1,6 @@
 package concepts;
 import java.io.*;
-import java.util.Scanner;
+import java.util.*;
 
 public class Input {
     public static void main(String[] args) throws IOException {
