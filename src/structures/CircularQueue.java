@@ -39,60 +39,21 @@ class CircularQueueArray {
 }
 
 class CircularQueueLinkedList {
-    Node front, rear;
-    int size;
-
-    public CircularQueueLinkedList() {
-        this.front = null;
-        this.rear = null;
-        this.size = 0;
-    }
 
     public void enqueue(int data) {
-        Node newNode = new Node(data);
-
-        if(front == null) front = newNode;
-        else rear.next = newNode;
-
-        rear = newNode;
-        rear.next = front;
-        size++;
-        printQueue();
+        CircularLinkedList.insertAtEnd(data);
     }
 
     public void dequeue() {
-        if (front == null) {
-            System.out.println("Cannot remove. Queue is empty");
-            return;
-        }
-        if (front == rear) {
-            front = null;
-            rear = null;
-            return;
-        }
-        int val = front.data;
-        front = front.next;
-        rear.next = front;
-        size--;
-        printQueue();
+      CircularLinkedList.deleteFromStart();
     }
 
     public void peek() {
-        System.out.println(front == null ? "Cannot peek! Queue is empty" : "Front element is: " + front.data);
+        System.out.println(CircularLinkedList.head == null ? "Cannot peek! Queue is empty" : "Front element is: " + CircularLinkedList.head.data);
     }
 
     public void printQueue() {
-        if (front == null) {
-            System.out.println("Queue is empty");
-            return;
-        }
-        Node temp = front;
-        System.out.print("front -> ");
-        do {
-            System.out.print(temp.data + " -> ");
-            temp = temp.next;
-        } while (temp != front);
-        System.out.println("front");
+        CircularLinkedList.printList();
     }
 }
 
@@ -105,6 +66,7 @@ public class CircularQueue {
         l.enqueue(30);
         l.enqueue(40);
         l.dequeue();
+        l.printQueue();
         l.peek();
     }
 }
