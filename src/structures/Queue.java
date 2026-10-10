@@ -2,21 +2,21 @@ package structures;
 public class Queue {
 
     public void enqueue(int data) {
-        LinkedList.insertAtEnd(data);
+        SinglyLinkedList.insertAtEnd(data);
         printQueue();
     }
 
     public void dequeue() {
-        LinkedList.deleteFromStart();
+        SinglyLinkedList.deleteFromStart();
         printQueue();
     }
 
     public void peek() {
-        System.out.println(LinkedList.head == null ? "Cannot peek! Queue is empty" : "Front element is: " + LinkedList.head.data);
+        System.out.println(SinglyLinkedList.head == null ? "Cannot peek! Queue is empty" : "Front element is: " + SinglyLinkedList.head.data);
     }
 
     public void printQueue() {
-        LinkedList.printList();
+        SinglyLinkedList.printList();
     }
 
     public static void main(String[] args) {

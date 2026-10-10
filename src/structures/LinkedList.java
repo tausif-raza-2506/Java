@@ -1,5 +1,6 @@
 package structures;
 import java.util.*;
+
 class Node {
     int data;
     Node next;
@@ -9,7 +10,17 @@ class Node {
         this.next = null;
     }
 }
-public class LinkedList {
+
+class DoubleNode extends Node {
+    DoubleNode prev;
+
+    public DoubleNode(int data) {
+        super(data);
+        this.prev = null;
+    }
+}
+
+class SinglyLinkedList {
     static Node head;
 
     public static void printChoiceList() {
@@ -71,14 +82,10 @@ public class LinkedList {
 
         Node newNode = new Node(data);
         Node temp = head;
+        for (int i = 0; i < index - 1; i++) temp = temp.next;
 
-        for (int i = 0; temp != null && i < index - 1; i++)
-            temp = temp.next;
-
-        if (temp != null) {
-            newNode.next = temp.next;
-            temp.next = newNode;
-        }
+        newNode.next = temp.next;
+        temp.next = newNode;
     }
 
     public static void deleteFromEnd() {
@@ -212,5 +219,141 @@ public class LinkedList {
             System.out.println("Enter 0 to exit to any other number to proceed with more operations");
             k = in.nextInt();
         }while (k!=0);
+    }
+}
+
+class CircularLinkedList {
+    static Node head;
+    static Node tail;
+    static int size;
+
+    public static void insertAtStart(int data) {
+        Node newNode = new Node(data);
+
+        newNode.next = head;
+        head = newNode;
+
+        if (tail == null) tail = head;
+        tail.next = head;
+        size++;
+    }
+
+    public static void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+            newNode.next = head;
+        } else {
+            tail.next = newNode;
+            tail = newNode;
+            tail.next = head;
+        }
+        size++;
+    }
+
+    public static void insertAtIndex(int data, int index) {
+        if (index < 0 || index > size) throw new IndexOutOfBoundsException("Invalid Index");
+
+        if (index == 0) {
+            insertAtStart(data);
+            return;
+        }
+
+        if (index == size) {
+            insertAtEnd(data);
+            return;
+        }
+
+        Node newNode = new Node(data);
+        Node temp = head;
+        for (int i = 0; i < index - 1; i++)
+            temp = temp.next;
+
+        newNode.next = temp.next;
+        temp.next = newNode;
+        size++;
+    }
+
+    public static void deleteFromStart() {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+
+        if (head.next == null) {
+            head = null;
+            tail = null;
+            return;
+        }
+
+        head = head.next;
+        tail.next = head;
+        size--;
+    }
+
+    public static void deleteFromEnd() {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+
+        if (head.next == null) {
+            head = null;
+            tail = null;
+            return;
+        }
+
+        Node temp = head;
+        while (temp.next != tail) temp = temp.next;
+        temp.next = head;
+        tail = temp;
+        size--;
+    }
+
+    public static void deleteAtIndex(int index) {
+        if (index < 0 || index > size) throw new IndexOutOfBoundsException("Invalid Index");
+
+        if (index == 0) {
+            deleteFromStart();
+            return;
+        }
+
+        if (index == size - 1) {
+            deleteFromEnd();
+            return;
+        }
+
+        Node temp = head;
+        for (int i = 0; i < index - 1; i++)
+            temp = temp.next;
+        temp.next = temp.next.next;
+        size--;
+    }
+
+    public static void printList() {
+        Node temp = head;
+        System.out.print("Front -> ");
+        for (int i = 0; i < size; i++) {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
+        }
+        System.out.println("Front");
+    }
+
+    public static void main(String[] args) {
+
+    }
+}
+
+class DoublyLinkedList {
+    public static void main(String[] args) {
+
+    }
+}
+
+public class LinkedList {
+    public static void main(String[] args) {
+
     }
 }

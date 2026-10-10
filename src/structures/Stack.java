@@ -1,27 +1,28 @@
 package structures;
 class StackLinkedList {
+
     public void push(int data) {
-        LinkedList.insertAtStart(data);
+        SinglyLinkedList.insertAtStart(data);
     }
 
     public void pop() {
-        LinkedList.deleteFromStart();
+        SinglyLinkedList.deleteFromStart();
     }
 
     public int peek() {
-        if(LinkedList.head == null) {
+        if(SinglyLinkedList.head == null) {
             System.out.println("Stack is empty");
             return -1;
         }
-        return LinkedList.head.data;
+        return SinglyLinkedList.head.data;
     }
 
     public void printStack() {
-        LinkedList.printList();
+        SinglyLinkedList.printList();
     }
 
     public int size() {
-        return LinkedList.size();
+        return SinglyLinkedList.size();
     }
 }
 
