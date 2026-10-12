@@ -39,21 +39,22 @@ class CircularQueueArray {
 }
 
 class CircularQueueLinkedList {
+    CircularLinkedList l = new CircularLinkedList();
 
     public void enqueue(int data) {
-        CircularLinkedList.insertAtEnd(data);
+        l.insertAtEnd(data);
     }
 
     public void dequeue() {
-      CircularLinkedList.deleteFromStart();
+      l.deleteFromStart();
     }
 
     public void peek() {
-        System.out.println(CircularLinkedList.head == null ? "Cannot peek! Queue is empty" : "Front element is: " + CircularLinkedList.head.data);
+        System.out.println(l.head == null ? "Cannot peek! Queue is empty" : "Front element is: " + l.head.data);
     }
 
     public void printQueue() {
-        CircularLinkedList.printList();
+        l.printList();
     }
 }
 

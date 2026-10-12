@@ -360,6 +360,7 @@ class DoublyLinkedList {
 
         if (head == null) {
             head = tail = newNode;
+            size++;
             return;
         }
 
@@ -402,8 +403,8 @@ class DoublyLinkedList {
 
         newNode.prev = temp;
         newNode.next = temp.next;
-        temp.next = newNode;
         temp.next.prev = newNode;
+        temp.next = newNode;
         size++;
     }
 
@@ -415,6 +416,7 @@ class DoublyLinkedList {
 
         if (head.next == null) {
             head = tail = null;
+            size--;
             return;
         }
 
@@ -434,8 +436,8 @@ class DoublyLinkedList {
         size--;
     }
 
-    public void deleteFromIndex(int data, int index) {
-        if (index < 0 || index > size) throw new IndexOutOfBoundsException("Invalid Index");
+    public void deleteFromIndex(int index) {
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException("Invalid Index");
 
         if (index == 0) {
             deleteFromStart();
@@ -454,16 +456,23 @@ class DoublyLinkedList {
         size--;
     }
 
-    public void reverList() {
+    public void reverseList() {
         if (head == null || head.next == null) {
             return;
         }
 
-        for (DoubleNode current = head, temp = null; current != null; current = current.prev) {
+        DoubleNode current = head, temp = null;
+        while (current != null) {
             temp = current.prev;
             current.prev = current.next;
             current.next = temp;
+
+            current = current.prev;
         }
+
+        temp = head;
+        head = tail;
+        tail = temp;
     }
 
     public void printList() {
@@ -473,19 +482,12 @@ class DoublyLinkedList {
         }
 
         System.out.print("null <- ");
-        for (Node temp = head; temp != null; temp = temp.next)
-            System.out.print(temp.data + " <-> ");
+        for (DoubleNode temp = head; temp != null; temp = temp.next) {
+            System.out.print(temp.data);
+            if (temp.next != null)
+                System.out.print(" <-> ");
+        }
         System.out.println(" -> null");
-    }
-
-    public static void main(String[] args) {
-        DoublyLinkedList l = new DoublyLinkedList();
-        l.insertAtEnd(10);
-        l.insertAtEnd(20);
-        l.insertAtEnd(30);
-        l.insertAtIndex(15, 1);
-        l.insertAtIndex(25, 3);
-        l.printList();
     }
 }
 
