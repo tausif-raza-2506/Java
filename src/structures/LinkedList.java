@@ -12,7 +12,7 @@ class Node {
 }
 
 class DoubleNode extends Node {
-    DoubleNode prev;
+    DoubleNode prev, next;
 
     public DoubleNode(int data) {
         super(data);
@@ -21,9 +21,117 @@ class DoubleNode extends Node {
 }
 
 class SinglyLinkedList {
-    static Node head;
+    Node head;
+    int size;
 
-    public static void printChoiceList() {
+    public SinglyLinkedList() {
+        this.head = null;
+        this.size = 0;
+    }
+
+    public void insertAtStart(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+        size++;
+    }
+
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+
+        if (head == null) {
+            insertAtStart(data);
+            return;
+        }
+
+        Node temp = head;
+        while (temp.next != null) temp = temp.next;
+        temp.next = newNode;
+        size++;
+    }
+
+    public void insertAtIndex(int data, int index) {
+        if (index < 0 || index > size) throw new IndexOutOfBoundsException("Invalid Index");
+
+        if (index == 0) {
+            insertAtStart(data);
+            return;
+        }
+
+        if (index == size) {
+            insertAtEnd(data);
+            return;
+        }
+
+        Node newNode = new Node(data);
+        Node temp = head;
+
+        for (int i = 0; i < index - 1; i++) temp = temp.next;
+        newNode.next = temp.next;
+        temp.next = newNode;
+        size++;
+    }
+
+    public void deleteFromStart() {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        head = head.next;
+        size--;
+    }
+
+    public void deleteFromEnd() {
+        if (head == null || head.next == null) {
+            deleteFromStart();
+            return;
+        }
+
+        Node temp = head;
+        while (temp.next.next != null) temp = temp.next;
+        temp.next = null;
+        size--;
+    }
+
+    public void deleteAtIndex(int index) {
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException("Invalid Index");
+
+        if (index == 0) {
+            deleteFromStart();
+            return;
+        }
+
+        if (index == size - 1) {
+            deleteFromEnd();
+            return;
+        }
+
+        Node temp = head;
+        for (int i = 0; i < index - 1; i++)
+            temp = temp.next;
+
+        if (temp.next != null) temp.next = temp.next.next;
+        size--;
+    }
+
+    public void reverseList() {
+        Node prev = null, next = null, current = head;
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        head = prev;
+    }
+
+    public void printList() {
+        for (Node temp = head; temp != null; temp = temp.next)
+            System.out.print(temp.data + " -> ");
+        System.out.println("null");
+    }
+
+    public void printChoiceList() {
         System.out.println(""" 
                     1. Insert from end
                     2. Insert from start
@@ -35,113 +143,13 @@ class SinglyLinkedList {
                 """);
     }
 
-    public static void printList() {
-        for (Node temp = head; temp != null; temp = temp.next)
-            System.out.print(temp.data + " -> ");
-        System.out.println("null");
-    }
-
-    public static int size() {
-        int count = 0;
-        for (Node temp = head; temp != null; temp = temp.next) count++;
-        return count;
-    }
-
-    public static void insertAtEnd(int data) {
-        Node newNode = new Node(data);
-
-        // If list is empty
-        if (head == null) {
-            head = newNode;
-            return;
-        }
-
-        Node temp = head;
-        while (temp.next != null) temp = temp.next;
-        temp.next = newNode;
-    }
-
-    public static void insertAtStart(int data) {
-        Node newNode = new Node(data);
-        newNode.next = head;
-        head = newNode;
-    }
-
-    public static void insertAtIndex(int data, int index) {
-        if (index < 0 || index > size()) throw new IndexOutOfBoundsException("Invalid Index");
-
-        if (index == 0) {
-            insertAtStart(data);
-            return;
-        }
-
-        if (index == size()) {
-            insertAtEnd(data);
-            return;
-        }
-
-        Node newNode = new Node(data);
-        Node temp = head;
-        for (int i = 0; i < index - 1; i++) temp = temp.next;
-
-        newNode.next = temp.next;
-        temp.next = newNode;
-    }
-
-    public static void deleteFromEnd() {
-        if (head == null) {
-            System.out.println("List is empty");
-            return;
-        }
-
-        // If only one node is present
-        if (head.next == null) {
-            head = null;
-            return;
-        }
-
-        Node temp = head;
-        while (temp.next.next != null) temp = temp.next;
-        temp.next = null;
-    }
-
-    public static void deleteFromStart() {
-        if (head == null) {
-            System.out.println("List is empty");
-            return;
-        }
-        head = head.next;
-    }
-
-    public static void deleteAtIndex(int index) {
-        if (index < 0 || index >= size()) throw new IndexOutOfBoundsException("Invalid Index");
-
-        if (index == 0) {
-            deleteFromStart();
-            return;
-        }
-
-        if (index == size() - 1) {
-            deleteFromEnd();
-            return;
-        }
-
-        Node temp = head;
-        for (int i = 0; temp.next != null && i < index - 1; i++)
-            temp = temp.next;
-
-        if (temp.next != null) temp.next = temp.next.next;
-    }
-
-    public static void reverseList() {
-
-    }
-
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
+        SinglyLinkedList l = new SinglyLinkedList();
         int choice, val, index, k;
+
         do {
-            printChoiceList();
+            l.printChoiceList();
             System.out.println("Enter choice");
             choice = in.nextInt();
             switch (choice) {
@@ -151,8 +159,8 @@ class SinglyLinkedList {
                         System.out.println("Enter value");
                         val = in.nextInt();
                         if (val == -1) break;
-                        insertAtEnd(val);
-                        printList();
+                        l.insertAtEnd(val);
+                        l.printList();
                     }
                 }
                 case 2 -> {
@@ -161,8 +169,8 @@ class SinglyLinkedList {
                         System.out.println("Enter value");
                         val = in.nextInt();
                         if (val == -1) break;
-                        insertAtStart(val);
-                        printList();
+                        l.insertAtStart(val);
+                        l.printList();
                     }
                 }
                 case 3 -> {
@@ -173,8 +181,8 @@ class SinglyLinkedList {
                         if (val == -1) break;
                         System.out.println("Enter index");
                         index = in.nextInt();
-                        insertAtIndex(val, index);
-                        printList();
+                        l.insertAtIndex(val, index);
+                        l.printList();
                     }
                 }
                 case 4 -> {
@@ -183,8 +191,8 @@ class SinglyLinkedList {
                         System.out.print("Delete node from end? (Enter 1 to confirm or -1 leave");
                         val = in.nextInt();
                         if (val == -1) break;
-                        deleteFromEnd();
-                        printList();
+                        l.deleteFromEnd();
+                        l.printList();
                     }
                 }
                 case 5 -> {
@@ -193,8 +201,8 @@ class SinglyLinkedList {
                         System.out.print("Delete node from start? (Enter 1 to confirm or -1 to leave");
                         val = in.nextInt();
                         if (val == -1) break;
-                        deleteFromStart();
-                        printList();
+                        l.deleteFromStart();
+                        l.printList();
                     }
                 }
                 case 6 -> {
@@ -205,14 +213,16 @@ class SinglyLinkedList {
                         if (val == -1) break;
                         System.out.println("Enter index");
                         index = in.nextInt();
-                        deleteAtIndex(index);
-                        printList();
+                        l.deleteAtIndex(index);
+                        l.printList();
                     }
                 }
                 case 7 -> {
-                    reverseList();
+                    System.out.print("Original List: ");
+                    l.printList();
+                    l.reverseList();
                     System.out.print("Reversed List : ");
-                    printList();
+                    l.printList();
                 }
                 default -> System.out.println("Invalid choice");
             }
@@ -223,13 +233,17 @@ class SinglyLinkedList {
 }
 
 class CircularLinkedList {
-    static Node head;
-    static Node tail;
-    static int size;
+    Node head, tail;
+    int size;
 
-    public static void insertAtStart(int data) {
+    public CircularLinkedList() {
+        this.head = null;
+        this.tail = null;
+        this.size = 0;
+    }
+
+    public void insertAtStart(int data) {
         Node newNode = new Node(data);
-
         newNode.next = head;
         head = newNode;
 
@@ -238,21 +252,12 @@ class CircularLinkedList {
         size++;
     }
 
-    public static void insertAtEnd(int data) {
-        Node newNode = new Node(data);
-        if (head == null) {
-            head = newNode;
-            tail = newNode;
-            newNode.next = head;
-        } else {
-            tail.next = newNode;
-            tail = newNode;
-            tail.next = head;
-        }
-        size++;
+    public void insertAtEnd(int data) {
+        insertAtStart(data);
+        tail = tail.next;
     }
 
-    public static void insertAtIndex(int data, int index) {
+    public void insertAtIndex(int data, int index) {
         if (index < 0 || index > size) throw new IndexOutOfBoundsException("Invalid Index");
 
         if (index == 0) {
@@ -275,13 +280,13 @@ class CircularLinkedList {
         size++;
     }
 
-    public static void deleteFromStart() {
+    public void deleteFromStart() {
         if (head == null) {
             System.out.println("List is empty");
             return;
         }
 
-        if (head.next == null) {
+        if (head == tail) {
             head = null;
             tail = null;
             return;
@@ -292,15 +297,9 @@ class CircularLinkedList {
         size--;
     }
 
-    public static void deleteFromEnd() {
-        if (head == null) {
-            System.out.println("List is empty");
-            return;
-        }
-
-        if (head.next == null) {
-            head = null;
-            tail = null;
+    public void deleteFromEnd() {
+        if (head == null || head == tail) {
+            deleteFromStart();
             return;
         }
 
@@ -311,7 +310,7 @@ class CircularLinkedList {
         size--;
     }
 
-    public static void deleteAtIndex(int index) {
+    public void deleteAtIndex(int index) {
         if (index < 0 || index > size) throw new IndexOutOfBoundsException("Invalid Index");
 
         if (index == 0) {
@@ -331,7 +330,11 @@ class CircularLinkedList {
         size--;
     }
 
-    public static void printList() {
+    public void printList() {
+        if(head == tail) {
+            System.out.println("List in empty");
+            return;
+        }
         Node temp = head;
         System.out.print("Front -> ");
         for (int i = 0; i < size; i++) {
@@ -340,15 +343,149 @@ class CircularLinkedList {
         }
         System.out.println("Front");
     }
-
-    public static void main(String[] args) {
-
-    }
 }
 
 class DoublyLinkedList {
-    public static void main(String[] args) {
+    DoubleNode head, tail;
+    int size;
 
+    public DoublyLinkedList() {
+        this.head = null;
+        this.tail = null;
+        this.size = 0;
+    }
+
+    public void insertAtStart(int data) {
+        DoubleNode newNode = new DoubleNode(data);
+
+        if (head == null) {
+            head = tail = newNode;
+            return;
+        }
+
+        newNode.next = head;
+        head.prev = newNode;
+        head = newNode;
+        size++;
+    }
+
+    public void insertAtEnd(int data) {
+        if (head == null) {
+            insertAtStart(data);
+            return;
+        }
+
+        DoubleNode newNode = new DoubleNode(data);
+        tail.next = newNode;
+        newNode.prev = tail;
+        tail = newNode;
+        size++;
+    }
+
+    public void insertAtIndex(int data, int index) {
+        if (index < 0 || index > size) throw new IndexOutOfBoundsException("Invalid Index");
+
+        if (index == 0) {
+            insertAtStart(data);
+            return;
+        }
+
+        if (index == size) {
+            insertAtEnd(data);
+            return;
+        }
+
+        DoubleNode newNode = new DoubleNode(data);
+        DoubleNode temp = head;
+
+        for (int i = 0; i < index - 1; i++) temp = temp.next;
+
+        newNode.prev = temp;
+        newNode.next = temp.next;
+        temp.next = newNode;
+        temp.next.prev = newNode;
+        size++;
+    }
+
+    public void deleteFromStart() {
+        if (head == null) {
+            System.out.println("List is Empty");
+            return;
+        }
+
+        if (head.next == null) {
+            head = tail = null;
+            return;
+        }
+
+        head = head.next;
+        head.prev = null;
+        size--;
+    }
+
+    public void deleteFromEnd() {
+        if (head == null || head == tail) {
+            deleteFromStart();
+            return;
+        }
+
+        tail = tail.prev;
+        tail.next = null;
+        size--;
+    }
+
+    public void deleteFromIndex(int data, int index) {
+        if (index < 0 || index > size) throw new IndexOutOfBoundsException("Invalid Index");
+
+        if (index == 0) {
+            deleteFromStart();
+            return;
+        }
+
+        if (index == size - 1) {
+            deleteFromEnd();
+            return;
+        }
+
+        DoubleNode temp = head;
+        for (int i = 0; i < index; i++) temp = temp.next;
+        temp.prev.next = temp.next;
+        temp.next.prev = temp.prev;
+        size--;
+    }
+
+    public void reverList() {
+        if (head == null || head.next == null) {
+            return;
+        }
+
+        for (DoubleNode current = head, temp = null; current != null; current = current.prev) {
+            temp = current.prev;
+            current.prev = current.next;
+            current.next = temp;
+        }
+    }
+
+    public void printList() {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+
+        System.out.print("null <- ");
+        for (Node temp = head; temp != null; temp = temp.next)
+            System.out.print(temp.data + " <-> ");
+        System.out.println(" -> null");
+    }
+
+    public static void main(String[] args) {
+        DoublyLinkedList l = new DoublyLinkedList();
+        l.insertAtEnd(10);
+        l.insertAtEnd(20);
+        l.insertAtEnd(30);
+        l.insertAtIndex(15, 1);
+        l.insertAtIndex(25, 3);
+        l.printList();
     }
 }
 
