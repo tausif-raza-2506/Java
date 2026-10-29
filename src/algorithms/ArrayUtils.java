@@ -30,4 +30,17 @@ public class ArrayUtils {
         }
         return arr;
     }
+
+    /** To check whether the given array is sorted or not. */
+    public static boolean isSorted(int[] arr) {
+        if (arr == null || arr.length <= 1) return true;
+
+        boolean isAscending = false, isDescending = false;
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (arr[i] > arr[i + 1]) isDescending = true;
+            else isAscending = true;
+        }
+        if(isAscending && isDescending) return false;
+        return true;
+    }
 }

@@ -1,16 +1,13 @@
 package structures;
 class StackLinkedList {
     SinglyLinkedList l = new SinglyLinkedList();
-    int size = 0;
 
     public void push(int data) {
         l.insertAtStart(data);
-        size++;
     }
 
     public void pop() {
         l.deleteFromStart();
-        size--;
     }
 
     public int peek() {
@@ -23,6 +20,10 @@ class StackLinkedList {
 
     public void printStack() {
         l.printList();
+    }
+
+    public int size() {
+        return l.size;
     }
 }
 
