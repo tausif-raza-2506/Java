@@ -127,6 +127,22 @@ public class NumberProgram {
             A prime number of the form 2ᵖ - 1 where p is also a prime.
             Example: 31 (2⁵ - 1 = 31, where 5 is prime).
             """;
+            case 31 -> """
+            A prime number whose reverse is also a prime.
+            NOTE: Single digit primes and palindromic primes are not emirp.
+            Example: 107 is emirp because both the number its reverse are prime. (107 & 701)
+            """;
+            case 32 -> """
+            An ISBN is a 10 digit number where the sum of digits multiplied with their
+            positional weight is divisible by 11.
+            Example: 1402894627 -> (1x10) + (2x9) + (0x8) + (2x7) + (8x6) + (9x5) + (4x4) + (6x3) + (2x2) + (7x1)
+            = 209 % 11 = 0
+            """;
+            case 33 -> """
+            A tech number is a number which has even number of digits and can be split into two equal
+            halves such that the square of sum of those two halves is equal to the number.
+            Example: 2025 -> (20 + 25) ^ 2 = 2025
+            """;
             default -> "Invalid choice. Please pick a number from 1 to 30.";
         };
     }
@@ -238,13 +254,13 @@ public class NumberProgram {
 
     /** Two prime numbers differing by 2. */
     public static boolean twinPrime(int num1, int num2) {
-        boolean b1 = NumUtils.checkPrime(num1), b2 = NumUtils.checkPrime(num2);
+        boolean b1 = NumUtils.isPrime(num1), b2 = NumUtils.isPrime(num2);
         return b1 && b2 && Math.abs(num1 - num2) == 2;
     }
 
     /** A number that is both prime and palindrome. */
     public static boolean palPrime(int num) {
-        return NumUtils.checkPrime(num) && palindrome(num);
+        return NumUtils.isPrime(num) && palindrome(num);
     }
 
     /** Square can be split into two parts summing to the number. */
@@ -261,11 +277,11 @@ public class NumberProgram {
 
     /** All cyclic rotations of the number are prime. */
     public static boolean circularPrime(int num) {
-        if (!NumUtils.checkPrime(num)) return false;
+        if (!NumUtils.isPrime(num)) return false;
         int size = NumUtils.countDigits(num);
         for (int i = 1; i < size; i++) {
             int x = NumUtils.leftRotate(num, i);
-            if (!NumUtils.checkPrime(x)) return false;
+            if (!NumUtils.isPrime(x)) return false;
         }
         return true;
     }
@@ -338,7 +354,7 @@ public class NumberProgram {
         }
         for (int p1 = 3; p1 <= num / 2; p1 += 2) {
             int p2 = num - p1;
-            if (NumUtils.checkPrime(p1) && NumUtils.checkPrime(p2)) {
+            if (NumUtils.isPrime(p1) && NumUtils.isPrime(p2)) {
                 System.out.println(num + " = " + p1 + " + " + p2);
                 return true;
             }
@@ -348,7 +364,7 @@ public class NumberProgram {
 
     /** Prime number of the form 2^p - 1. */
     public static boolean mersennePrime(int num) {
-        if (!NumUtils.checkPrime(num))
+        if (!NumUtils.isPrime(num))
             return false;
 
         // Using String Only
@@ -359,6 +375,28 @@ public class NumberProgram {
 //        int next = num + 1;
 //        if ((next & (next - 1)) != 0)
 //            return false;
+    }
+
+    public static boolean emirp(int num) {
+        if(!NumUtils.isPrime(num)) return false;
+        if(num < 10 || NumUtils.reverseNum(num) == num) return false;
+        return NumUtils.isPrime(NumUtils.reverseNum(num));
+    }
+
+    public static boolean ISBN(int num) {
+        int sum = 0;
+        for (int i = 1; i <= 10 & num > 0; i++, num /= 10) sum += (num % 10) * i;
+        return sum % 11 == 0;
+    }
+
+    public static boolean tech(int num) {
+        int digits = NumUtils.countDigits(num);
+        if (digits % 2 == 1) return false;
+        int divisor = NumUtils.POWERS_OF_10[digits / 2],
+                right = num % divisor,
+                left = num / divisor,
+                sum = left + right;
+        return sum * sum == num;
     }
 
     public static void main(String[] args) {
@@ -396,6 +434,9 @@ public class NumberProgram {
                     28. bouncy
                     29. goldbach
                     30. mersennePrime
+                    31. emirp
+                    32. ISBN
+                    33. tech
                     """);
             System.out.println("Enter choice");
             choice = in.nextInt();
@@ -433,6 +474,9 @@ public class NumberProgram {
                 case 28 -> bouncy(num);
                 case 29 -> goldbach(num);
                 case 30 -> mersennePrime(num);
+                case 31 -> emirp(num);
+                case 32 -> ISBN(num);
+                case 33 -> tech(num);
                 default -> "Invalid choice";
             });
             System.out.println("Enter 1 to continue or any other number to terminate");

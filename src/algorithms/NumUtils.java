@@ -89,7 +89,7 @@ public class NumUtils {
     }
 
     /** Check whether the given integer is prime or not. */
-    public static boolean checkPrime(int num) {
+    public static boolean isPrime(int num) {
         if (num < 0) {
             throw new IllegalArgumentException("Input must be non-negative");
         }
