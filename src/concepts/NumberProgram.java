@@ -1,5 +1,5 @@
 package concepts;
-import algorithms.NumUtils;
+import striver.NumUtils;
 import java.util.*;
 
 public class NumberProgram {

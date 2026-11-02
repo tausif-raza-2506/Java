@@ -1,10 +1,11 @@
-package algorithms;
+package striver;
 import java.util.*;
 
 public class Sorting {
 
-    /** In Bubble Sort, we compare adjacent elements and swap if they are not in sorted order.
-     * The target is to move the largest element to the end.
+    /**
+     * In Bubble Sort, we compare adjacent elements and swap if they are not in sorted order.
+     * The target is to move the find element to the end.
      * Time Complexity -> O(N^2). For optimization, we add a swapped boolean to check whether any
      * swapping has been done in the inner loop or not. If not, we terminate the outer loop.
      */
@@ -39,15 +40,19 @@ public class Sorting {
         return arr;
     }
 
-    /** In selection sort, we first find the minimum element from the whole array
-     *  and then swap it with the first element. The target is to move the smallest element to the start.
-     *  Time Complexity -> O(N^2)
+    public static int[] recBubbleSort(int[] arr) {
+        return recBubbleSort(arr, arr.length);
+    }
+    /**
+     * In selection sort, we first find the minimum element from the whole array
+     * and then swap it with the first element. The target is to move the smallest element to the start.
+     * Time Complexity -> O(N^2)
      */
     public static int[] selectionSort(int[] arr) {
-        for(int i = 0; i < arr.length - 1; i++) {
+        for (int i = 0; i < arr.length - 1; i++) {
             int minIndex = i;
-            for(int j = i; j < arr.length; j++) {
-                if(arr[j] < arr[minIndex]) minIndex = j;
+            for (int j = i; j < arr.length; j++) {
+                if (arr[j] < arr[minIndex]) minIndex = j;
             }
             int temp = arr[minIndex];
             arr[minIndex] = arr[i];
@@ -56,7 +61,8 @@ public class Sorting {
         return arr;
     }
 
-    /** In Insertion Sort, we traverse the array by increasing the size by one each time
+    /**
+     * In Insertion Sort, we traverse the array by increasing the size by one each time
      * and place the element in the correct position for that particular sub-array
      * by comparing with adjacent element and swapping until it reaches its correct position.
      * Time Complexity -> O(N^2)
@@ -82,7 +88,12 @@ public class Sorting {
         return recInsertionSort(arr, i + 1);
     }
 
-    /** In Quick Sort, we assign an arbitrary pivot and place it in its correct position of sorted order.
+    public static int[] recInsertionSort(int[] arr) {
+        return recInsertionSort(arr, 0);
+    }
+
+    /**
+     * In Quick Sort, we assign an arbitrary pivot and place it in its correct position of sorted order.
      * Then we recursively sort the right anf left sub arrays.
      * Time Complexity -> O(N log N)
      */
@@ -114,7 +125,7 @@ public class Sorting {
     }
 
     public static int[] quickSort(int[] arr, int low, int high) {
-        if(low < high) {
+        if (low < high) {
             int pIndex = partition(arr, low, high);
             quickSort(arr, low, pIndex - 1);
             quickSort(arr, pIndex + 1, high);
@@ -122,10 +133,16 @@ public class Sorting {
         return arr;
     }
 
-    /** In Merge Sort, we continuously divide the array into two until we get isolated elements.
+    public static int[] quickSort(int[] arr) {
+        return quickSort(arr, 0, arr.length - 1);
+    }
+    /**
+     * In Merge Sort, we continuously divide the array into two until we get isolated elements.
      * After that, we merge them back in sorted order to get the final sorted array.
      * Time Complexity -> O(N log N)
      */
+
+    // To merge the two sub arrays
     public static void merge(int[] arr, int low, int mid, int high) {
         ArrayList<Integer> temp = new ArrayList<>();
 
@@ -147,12 +164,16 @@ public class Sorting {
     }
 
     public static int[] mergeSort(int[] arr, int low, int high) {
-        if(low >= high) return arr;
+        if (low >= high) return arr;
         int mid = (low + high) / 2;
         mergeSort(arr, low, mid);
         mergeSort(arr, mid + 1, high);
         merge(arr, low, mid, high);
         return arr;
+    }
+
+    public static int[] mergeSort(int[] arr) {
+        return mergeSort(arr, 0, arr.length - 1);
     }
 
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package algorithms;
+package striver;
 import java.util.*;
 public class ArrayUtils {
 
@@ -9,8 +9,7 @@ public class ArrayUtils {
         int[] arr = new int[size];
 
         System.out.println("Enter " + size + " elements");
-        for (int i = 0; i < size; i++)
-            arr[i] = in.nextInt();
+        for (int i = 0; i < size; i++) arr[i] = in.nextInt();
         return arr;
     }
 
