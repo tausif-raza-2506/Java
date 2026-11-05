@@ -1,4 +1,4 @@
-package striver.arrays.easy;
+package striver.arrays.medium;
 import striver.ArrayUtils;
 import java.util.*;
 
