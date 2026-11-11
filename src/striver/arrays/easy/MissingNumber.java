@@ -2,7 +2,7 @@ package striver.arrays.easy;
 import striver.*;
 import java.util.*;
 
-public class FindMissingNumber {
+public class MissingNumber {
     
     /** Brute force approach: We run a loop from 0 to N and find each element in the given array.
      * If they are found, we break the array there itself and return the missing value.
@@ -37,7 +37,8 @@ public class FindMissingNumber {
         return missing;
     }
 
-    /** Optimal approach 1: We create a boolean type array of length arr + 1 to accommodate the missing value
+    /** Optimal approach 1 -> Hashing method
+     *  We create a boolean type array of length arr + 1 to accommodate the missing value
      *  We traverse the original array and mark true for every element present in the original array.
      *  Now, in second traversal, we check which index is not flagged which gives us the missing element.
      *  Time Complexity -> O(N). This method requires two traversals.
@@ -52,12 +53,27 @@ public class FindMissingNumber {
         return missing;
     }
 
-    /** Optimal approach 2: Since we have all the elements from 0 to N, we find the sum using the formula n * (n + 1) / 2
+    /** Optimal approach 2 -> XOR method, we know a^a = 0 and a^1 = a
+     * So we create a xor variable which does xor of all elements from 0 to N.
+     * Another xor variable which does xor of all elements within the array.
+     * To get our final answer, we do xor1 with xor2.
+     * Time Complexity -> O(N)
+     */
+    public static int optimal2(int[] arr) {
+        int xor1 = 0, xor2 = 0;
+        for (int i = 0; i < arr.length; i++) {
+            xor1 ^= i;
+            xor2 ^= arr[i];
+        }
+        return (xor1 ^ arr.length) ^ xor2;
+    }
+
+    /** Optimal approach 3: Since we have all the elements from 0 to N, we find the sum using the formula n * (n + 1) / 2
      * Now, we traverse the array and find the actual sum of the elements present in the array.
      * The missing element is the difference of the expected sum and the actual sum.
      * Time Complexity -> O(N). Here we require only one array traversal.
      */
-    public static int optimal2(int[] arr) {
+    public static int optimal3(int[] arr) {
         int expectedSum = 0, actualSum = 0, n = arr.length;
 
         expectedSum = n * (n + 1) / 2;
@@ -70,6 +86,6 @@ public class FindMissingNumber {
         Scanner in = new Scanner(System.in);
         int[] arr = ArrayUtils.readArray(in);
 
-        System.out.println("Missing number is: " + better(arr));
+        System.out.println("Missing number is: " + optimal2(arr));
     }
 }
