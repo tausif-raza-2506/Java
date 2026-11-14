@@ -36,7 +36,6 @@ public class RemoveDuplicates {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int[] arr = ArrayUtils.readArray(in);
-        int[] union = optimal(arr);
-        System.out.println(Arrays.toString(union));
+        System.out.println(Arrays.toString(optimal(arr)));
     }
 }
