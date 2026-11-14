@@ -18,6 +18,6 @@ public class SumHighLowFreq {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int[] arr = ArrayUtils.readArray(in);
-        System.out.println("Sum of lowest and highest frequency is: " + optimal1(arr));
+        System.out.println("Sum of lowest and highest frequency is: " + optimal(arr));
     }
 }
